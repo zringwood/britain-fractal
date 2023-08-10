@@ -1,10 +1,11 @@
 from PIL import Image, ImageDraw
 import math
+import sys
 import numpy as np
 mask = Image.open("mask.png")
 
 #The length of our "measuring stick", per the coastline paradox. 
-radius = 30
+radius = (int)(sys.argv[1])
 startpoint = (353, 353)
 allPoints = [startpoint]
 
@@ -24,6 +25,8 @@ savePoints = []
 def isOutOfBounds(point):
     return point[0] > mask.size[0] or point[1] > mask.size[1]
 currentpoint = (startpoint[0] - radius, startpoint[1])
+
+
 # allPoints needs two points in the array for the loop to work properly. 
 initialcolor = mask.getpixel(currentpoint) 
 while mask.getpixel(toInteger(currentpoint)) == initialcolor :
@@ -47,15 +50,15 @@ while math.dist(currentpoint, startpoint) > radius :
     if len(allPoints) > MAX_POINTS:
         break
     
-
+print((len(allPoints)-1)*30 + math.dist(allPoints[0], allPoints[1]))
 
 # for i in range(len(savePoints)):
 #     point = toInteger(savePoints[i])
 #     mask.paste((255, 0, 0, 255), (point[0], point[1], point[0] + 1, point[1] + 1))
 
-draw = ImageDraw.Draw(mask)
-draw.polygon(allPoints, None, (255,0,0), 3)
-for i in range(len(allPoints)):
-    point = toInteger(allPoints[i])
-    mask.paste((0, 0, 255, 255), (point[0], point[1], point[0] + 5, point[1] + 5))
-mask.show()
+# draw = ImageDraw.Draw(mask)
+# draw.polygon(allPoints, None, (255,0,0), 3)
+# for i in range(len(allPoints)):
+#     point = toInteger(allPoints[i])
+#     mask.paste((0, 0, 255, 255), (point[0], point[1], point[0] + 5, point[1] + 5))
+# mask.show()
