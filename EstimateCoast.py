@@ -6,7 +6,7 @@ plt.rcParams["figure.autolayout"] = True
 
 x = []
 y = []
-for i in range(200):
+for i in range(2):
     x.append(i+1)
     y.append(MeasureCoast.estimateCoastline(i+1))
 

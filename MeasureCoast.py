@@ -2,11 +2,12 @@ from PIL import Image, ImageDraw
 import math
 import sys
 import numpy as np
-mask = Image.open("mask.png")
+mask = Image.open("outline.png")
 def estimateCoastline(radius) :
 #The length of our "measuring stick", per the coastline paradox. 
 # radius = (int)(sys.argv[1])
-    startpoint = (1760, 1064)
+    # startpoint = (1760, 1064)
+    startpoint = (8, 1225)
     allPoints = [startpoint]
 
     BLACK = (0,0,0, 255)
@@ -29,9 +30,8 @@ def estimateCoastline(radius) :
 
     # allPoints needs two points in the array for the loop to work properly. 
     initialcolor = mask.getpixel(currentpoint) 
-
-    while mask.getpixel(toInteger(currentpoint)) == initialcolor :
     
+    while mask.getpixel(toInteger(currentpoint)) == initialcolor :
         currentpoint = rotate(currentpoint, allPoints[len(allPoints)-1], ONE_DEGREE)
         savePoints.append(currentpoint)
     
